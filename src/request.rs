@@ -4,13 +4,13 @@ use std::env;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
-pub async fn http_request(url: &str) -> Result<T> {
+pub async fn http_request(url: &str) -> Result<String> {
     dotenv().ok();
 
     let token = env::var("TOKEN")
-        .expect("TOKEN is not found")
-        .parse()
-        .unwrap();
+      .expect("TOKEN is not found")
+      .parse()
+      .unwrap();
     
     let mut headers = header::HeaderMap::new();
     headers.insert("accept", "application/json".parse().unwrap());
@@ -18,10 +18,10 @@ pub async fn http_request(url: &str) -> Result<T> {
 
     let client = reqwest::Client::builder().build()?;
     let res = client
-        .get(url)
-        .headers(headers)
-        .send()?
-        .await?;
+      .get(url)
+      .headers(headers)
+      .send()
+      .await?;
     
     let body = res.text().await?;
 
