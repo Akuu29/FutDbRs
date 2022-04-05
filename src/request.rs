@@ -1,10 +1,11 @@
 use reqwest::header;
 use dotenv::dotenv;
 use std::env;
+use crate::clubs::model_club::Clubs;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
-pub async fn http_request(url: &str) -> Result<String> {
+pub async fn http_request(url: &str) -> Result<Clubs> {
     dotenv().ok();
 
     let token = env::var("TOKEN")
@@ -22,8 +23,10 @@ pub async fn http_request(url: &str) -> Result<String> {
       .headers(headers)
       .send()
       .await?;
-    
-    let body = res.text().await?;
+
+    // parse response to json
+    let body = res.json::<Clubs>()
+      .await?;
 
     Ok(body)
 }
