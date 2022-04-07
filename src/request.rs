@@ -1,11 +1,10 @@
-use reqwest::header;
+use reqwest::{Response, header, Client};
 use dotenv::dotenv;
 use std::env;
-use crate::clubs::model_club::Clubs;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
-pub async fn http_request(url: &str) -> Result<Clubs> {
+pub async fn http_request(url: String) -> Result<Response> {
     dotenv().ok();
 
     let token = env::var("TOKEN")
@@ -17,16 +16,12 @@ pub async fn http_request(url: &str) -> Result<Clubs> {
     headers.insert("accept", "application/json".parse().unwrap());
     headers.insert("X-AUTH-TOKEN", token);
 
-    let client = reqwest::Client::builder().build()?;
+    let client = Client::builder().build()?;
     let res = client
       .get(url)
       .headers(headers)
       .send()
       .await?;
 
-    // parse response to json
-    let body = res.json::<Clubs>()
-      .await?;
-
-    Ok(body)
+    Ok(res)
 }
