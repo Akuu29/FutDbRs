@@ -1,6 +1,6 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Player {
     id: u32,
     resource_id: Option<u32>,
@@ -46,30 +46,30 @@ pub struct Player {
     goalkeeper_attributes: Option<PlayerGoalkeeper>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Players {
-    items: Vec<Player>,
+    pub items: Vec<Player>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct Trait {
     id: u32,
     name: String,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct Specialitie {
     id: u32,
     name: String,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct PlayerPace {
     acceleration: u32,
     sprint_speed: u32,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct PlayerShooting {
     positioning: u32,
     finishing: u32,
@@ -79,7 +79,7 @@ struct PlayerShooting {
     penalties: u32,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct PlayerPassing {
     vision: u32,
     crossing: u32,
@@ -89,7 +89,7 @@ struct PlayerPassing {
     curve: u32,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct PlayreDribbling {
     agility: u32,
     balance: u32,
@@ -99,7 +99,7 @@ struct PlayreDribbling {
     composure: u32,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct PlayerDefending {
     interceptions: u32,
     heading_accuracy: u32,
@@ -107,7 +107,7 @@ struct PlayerDefending {
     sliding_tackle: u32,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct PlayerPhysicality {
     jumping: u32,
     stamina: u32,
@@ -115,7 +115,7 @@ struct PlayerPhysicality {
     aggression: u32,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct 	PlayerGoalkeeper {
     diving: u32,
     handling: u32,
